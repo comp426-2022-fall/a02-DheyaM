@@ -6,13 +6,13 @@ import fetch from "node-fetch";
 
 const argv = process.argv.slice(2);
 
-
+// timezone
 const timezone = moment.tz.guest()
 if (process.argv.indexOf('-z') > -1) {
     timezone = argv[process.argv.indexOf('-z') - 1];
 }
 
-
+// help
 if (process.argv.indexOf('-h') > -1) {
     console.log("Usage: $0 [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE")
     console.log("  -h\t\tShow this help message and exit.")
@@ -21,9 +21,10 @@ if (process.argv.indexOf('-h') > -1) {
     console.log("  -z\t\tTime zone: uses /etc/timezone by default.")
     console.log("  -d 0-6\tDay to retrieve weather: 0 is today; defaults to 1.")
     console.log("  -j\t\tEcho pretty JSON from open-meteo API and exit.")
-  process.exit(0)
+    process.exit(0)
 }
 
+// latitude and longitude
 const latitude = 0;
 const longitude = 0;
 
@@ -48,11 +49,13 @@ const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+
 // Get data from request
 const data = await response.json();
 
+// json
 if (process.argv.indexOf('-j') > -1) {
 	console.log(data);
 	process.exit(0);
 }
 
+// days
 const days = 1;
 
 if (process.argv.indexOf('-d') > -1) {
@@ -84,5 +87,3 @@ if (days == 0) {
     console.log(" tomorrow.")
     process.exit(0)
 }
-
-process.exit(1);

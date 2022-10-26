@@ -8,9 +8,10 @@ const argv = minimist(process.argv.slice(2));
 
 // timezone
 const timezone = moment.tz.guess()
-if (process.argv.indexOf('-z') > -1) {
-    timezone = argv[process.argv.indexOf('-z') - 1];
+if (argv.z) {
+    timezone = argv.z;
 }
+timezone.replace("/", "%2");
 
 // help
 if (argv.h) {

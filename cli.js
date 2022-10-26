@@ -20,9 +20,22 @@ if (argv.h) {
     console.log("  -e, -w\tLongitude: E positive; W negative.")
     console.log("  -z\t\tTime zone: uses /etc/timezone by default.")
     console.log("  -d 0-6\tDay to retrieve weather: 0 is today; defaults to 1.")
-    console.log("  -j\t\tEcho pretty JSON from open-meteo API and exit.")
-    process.exit(0)
+    console.log("  -j\t\tEcho pretty JSON from open-meteo API and exit.");
+    process.exit(0);
 }
+
+// check if input is in bounds
+if (argv.n || argv.s || argv.e || argv.w){
+	if (argv.n < 0 || argv.s > 0){
+		console.log("Input latitude is not in range");
+		process.exit(0);
+	}
+	if (argv.e < 0 || argv.w > 0){
+		console.log("Input longitude is not in range");
+		process.exit(0);
+	}
+}
+
 
 // latitude and longitude
 var latitude = 0;

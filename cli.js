@@ -73,28 +73,19 @@ if (argv.j) {
 const days = 1;
 
 if (argv.d) {
-	days = argv[process.argv.indexOf('-d') - 1];
+	days = argv.d;
+}
+
+if (data.daily.precipitation_hours[days] == 0) {
+	console.log('You will not need your galoshes')
+} else {
+	console.log('You might need your galoshes')
 }
 if (days == 0) {
-    if (data.daily.precipitation_hours[days] == 0) {
-		console.log('You will not need your galoshes')
-	} else {
-		console.log('You might need your galoshes')
-	}
-    console.log(" today.")
+	console.log(" today.")
 } else if (days > 1) {
-    if (data.daily.precipitation_hours[days] == 0) {
-		console.log('You will not need your galoshes')
-	} else {
-		console.log('You might need your galoshes')
-	}
     console.log(" in " + days + " days.")
 } else {
-    if (data.daily.precipitation_hours[days] == 0) {
-		console.log('You will not need your galoshes')
-	} else {
-		console.log('You might need your galoshes')
-	}
     console.log(" tomorrow.")
 }
-process.exit(0)
+process.exit(0);

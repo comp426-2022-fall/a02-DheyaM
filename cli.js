@@ -13,7 +13,10 @@ if (args.h) {
 }
 
 // timezone
-var timezone = moment.tz.guess()
+var timezone = moment.tz.guess();
+// latitude and longitude
+var latitude;
+var longitude;
 
 // check if input is in bounds
 if (args.n || args.s || args.e || args.w){
@@ -27,19 +30,14 @@ if (args.n || args.s || args.e || args.w){
 	}
 }
 
-
-// latitude and longitude
-var latitude;
-var longitude;
-
 if (args.n) {
 	latitude = args.n;
 }
 if (args.s) {
-	latitude = args.s * (-1);
+	latitude = args.s * -1;
 }
 if (args.w) {
-	longitude = args.w * (-1);
+	longitude = args.w * -1;
 }
 if (args.e) {
 	longitude = args.e;
@@ -49,13 +47,13 @@ if (args.t) {
 }
 timezone.replace("/", "%2");
 
-if(!latitude) {
-	console.log("Latitude must be in range");
-	process.exit(0);
-} else if (!longitude) {
-	console.log("Longitude must be in range");
-	process.exit(0);
-}
+// if(!latitude) {
+// 	console.log("Latitude must be in range");
+// 	process.exit(0);
+// } else if (!longitude) {
+// 	console.log("Longitude must be in range");
+// 	process.exit(0);
+// }
 
 // Make a request
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+latitude+'&longitude='+longitude+'&daily=precipitation_hours&timezone='+timezone);

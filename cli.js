@@ -47,13 +47,13 @@ if (args.t) {
 }
 timezone.replace("/", "%2");
 
-// if(!latitude) {
-// 	console.log("Latitude must be in range");
-// 	process.exit(0);
-// } else if (!longitude) {
-// 	console.log("Longitude must be in range");
-// 	process.exit(0);
-// }
+if(!latitude) {
+	console.log("Latitude must be in range");
+	process.exit(0);
+} else if (!longitude) {
+	console.log("Longitude must be in range");
+	process.exit(0);
+}
 
 // Make a request
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+latitude+'&longitude='+longitude+'&daily=precipitation_hours&timezone='+timezone);

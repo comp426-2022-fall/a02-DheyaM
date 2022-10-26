@@ -56,7 +56,7 @@ if(!latitude) {
 }
 
 // Make a request
-const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + String(lat) + '&longitude=' + String(long) + '&hourly=temperature_2m&daily=precipitation_hours&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timezone=' + timezone);
+const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=' + String(latitude) + '&longitude=' + String(longitude) + '&hourly=temperature_2m&daily=precipitation_hours&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph&precipitation_unit=inch&timezone=' + timezone);
 // Get data from request
 const data = await response.json();
 

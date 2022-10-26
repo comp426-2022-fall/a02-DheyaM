@@ -18,17 +18,17 @@ var timezone = moment.tz.guess();
 var latitude;
 var longitude;
 
-// // check if input is in bounds
-// if (args.n || args.s || args.e || args.w){
-// 	if (args.n < 0 || args.s > 0){
-// 		console.log("Latitude must be in range");
-// 		process.exit(0);
-// 	}
-// 	if (args.e < 0 || args.w > 0){
-// 		console.log("Longitude must be in range");
-// 		process.exit(0);
-// 	}
-// }
+// check if input is in bounds
+if (args.n || args.s || args.e || args.w){
+	if (args.n < 0 || args.s > 0){
+		console.log("Latitude must be in range");
+		process.exit(0);
+	}
+	if (args.e < 0 || args.w > 0){
+		console.log("Longitude must be in range");
+		process.exit(0);
+	}
+}
 
 if (args.n) {
 	latitude = args.n;

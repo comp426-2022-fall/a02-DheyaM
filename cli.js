@@ -4,10 +4,10 @@ import moment from "moment-timezone";
 import fetch from "node-fetch";
 import minimist from "minimist";
 
-const argv = minimist(process.argv.slice(2));
+const args = minimist(process.argv.slice(2));
 
 // help
-if (argv.h) {
+if (args.h) {
 	console.log("Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -t TIME_ZONE\n    -h            Show this help message and exit.\n    -n, -s        Latitude: N positive; S negative.\n    -e, -w        Longitude: E positive; W negative.\n    -t            Time zone: uses tz.guess() from moment-timezone by default.\n    -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.\n    -j            Echo pretty JSON from open-meteo API and exit.");
     process.exit(0);
 }
@@ -16,12 +16,12 @@ if (argv.h) {
 var timezone = moment.tz.guess()
 
 // check if input is in bounds
-if (argv.n || argv.s || argv.e || argv.w){
-	if (argv.n < 0 || argv.s > 0){
+if (args.n || args.s || args.e || args.w){
+	if (args.n < 0 || args.s > 0){
 		console.log("Latitude must be in range");
 		process.exit(0);
 	}
-	if (argv.e < 0 || argv.w > 0){
+	if (args.e < 0 || args.w > 0){
 		console.log("Longitude must be in range");
 		process.exit(0);
 	}
@@ -32,20 +32,20 @@ if (argv.n || argv.s || argv.e || argv.w){
 var latitude;
 var longitude;
 
-if (argv.n) {
-	latitude = argv.n;
+if (args.n) {
+	latitude = args.n;
 }
-if (argv.s) {
-	latitude = argv.s * (-1);
+if (args.s) {
+	latitude = args.s * (-1);
 }
-if (argv.w) {
-	longitude = argv.w * (-1);
+if (args.w) {
+	longitude = args.w * (-1);
 }
-if (argv.e) {
-	longitude = argv.e;
+if (args.e) {
+	longitude = args.e;
 }
-if (argv.t) {
-    timezone = argv.t;
+if (args.t) {
+    timezone = args.t;
 }
 timezone.replace("/", "%2");
 
@@ -63,13 +63,13 @@ const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+
 const data = await response.json();
 
 // json
-if (argv.j) {
+if (args.j) {
 	console.log(data);
 	process.exit(0);
 }
 
 // days
-const days = argv.d;
+const days = args.d;
 
 if (data.daily.precipitation_hours[days] == 0) {
 	console.log("You will not need your galoshes")

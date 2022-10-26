@@ -7,7 +7,7 @@ import minimist from "minimist";
 const argv = minimist(process.argv.slice(2));
 
 // timezone
-const timezone = moment.tz.guest()
+const timezone = moment.tz.guess()
 if (process.argv.indexOf('-z') > -1) {
     timezone = argv[process.argv.indexOf('-z') - 1];
 }
@@ -71,7 +71,7 @@ if (argv.j) {
 // days
 const days = 1;
 
-if (process.argv.indexOf('-d') > -1) {
+if (argv.d) {
 	days = argv[process.argv.indexOf('-d') - 1];
 }
 if (days == 0) {

@@ -1,8 +1,8 @@
 {
-  "name": "a02",
+  "name": "a02-DheyaM",
   "version": "1.0.0",
   "description": "create an installable node.js cli application package",
-  "main": "server.js",
+  "main": "cli.js",
   "scripts": {
     "test": "node cli.js -n 35.92 -w 79.05 -z America/New_York"
   },

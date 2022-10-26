@@ -6,14 +6,14 @@ import minimist from "minimist";
 
 const argv = minimist(process.argv.slice(2));
 
-// timezone
-const timezone = moment.tz.guess()
-
 // help
 if (argv.h) {
 	console.log("Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -t TIME_ZONE\n    -h            Show this help message and exit.\n    -n, -s        Latitude: N positive; S negative.\n    -e, -w        Longitude: E positive; W negative.\n    -t            Time zone: uses tz.guess() from moment-timezone by default.\n    -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.\n    -j            Echo pretty JSON from open-meteo API and exit.");
     process.exit(0);
 }
+
+// timezone
+const timezone = moment.tz.guess()
 
 // check if input is in bounds
 if (argv.n || argv.s || argv.e || argv.w){
@@ -29,17 +29,15 @@ if (argv.n || argv.s || argv.e || argv.w){
 
 
 // latitude and longitude
-var latitude = 0;
-var longitude = 0;
+var latitude;
+var longitude;
 
 if (argv.n) {
 	latitude = argv.n;
 }
-
 if (argv.s) {
-	latitude = (argv.s) * (-1);
+	latitude = argv.s * (-1);
 }
-
 if (argv.w) {
 	longitude = argv.w * (-1);
 }
@@ -61,7 +59,6 @@ if(!latitude) {
 
 // Make a request
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+latitude+'&longitude='+longitude+'&daily=precipitation_hours&timezone='+timezone);
-
 // Get data from request
 const data = await response.json();
 

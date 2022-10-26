@@ -13,7 +13,7 @@ if (argv.h) {
 }
 
 // timezone
-const timezone = moment.tz.guess()
+var timezone = moment.tz.guess()
 
 // check if input is in bounds
 if (argv.n || argv.s || argv.e || argv.w){

@@ -11,13 +11,7 @@ const timezone = moment.tz.guess()
 
 // help
 if (argv.h) {
-    console.log("Usage: $0 [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE")
-    console.log("  -h\t\tShow this help message and exit.")
-    console.log("  -n, -s\tLatitude: N positive; S negative.")
-    console.log("  -e, -w\tLongitude: E positive; W negative.")
-    console.log("  -z\t\tTime zone: uses /etc/timezone by default.")
-    console.log("  -d 0-6\tDay to retrieve weather: 0 is today; defaults to 1.")
-    console.log("  -j\t\tEcho pretty JSON from open-meteo API and exit.");
+	console.log("Usage: galosh.js [options] -[n|s] LATITUDE -[e|w] LONGITUDE -t TIME_ZONE\n    -h            Show this help message and exit.\n    -n, -s        Latitude: N positive; S negative.\n    -e, -w        Longitude: E positive; W negative.\n    -t            Time zone: uses tz.guess() from moment-timezone by default.\n    -d 0-6        Day to retrieve weather: 0 is today; defaults to 1.\n    -j            Echo pretty JSON from open-meteo API and exit.");
     process.exit(0);
 }
 
@@ -56,6 +50,14 @@ if (argv.t) {
     timezone = argv.t;
 }
 timezone.replace("/", "%2");
+
+if(!latitude) {
+	console.log("Latitude must be in range");
+	process.exit(0);
+} else if (!longitude) {
+	console.log("Longitude must be in range");
+	process.exit(0);
+}
 
 // Make a request
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+latitude+'&longitude='+longitude+'&daily=precipitation_hours&timezone='+timezone);

@@ -8,10 +8,6 @@ const argv = minimist(process.argv.slice(2));
 
 // timezone
 const timezone = moment.tz.guess()
-if (argv.z) {
-    timezone = argv.z;
-}
-timezone.replace("/", "%2");
 
 // help
 if (argv.h) {
@@ -28,11 +24,11 @@ if (argv.h) {
 // check if input is in bounds
 if (argv.n || argv.s || argv.e || argv.w){
 	if (argv.n < 0 || argv.s > 0){
-		console.log("Input latitude is not in range");
+		console.log("Latitude must be in range");
 		process.exit(0);
 	}
 	if (argv.e < 0 || argv.w > 0){
-		console.log("Input longitude is not in range");
+		console.log("Longitude must be in range");
 		process.exit(0);
 	}
 }
@@ -56,6 +52,10 @@ if (argv.w) {
 if (argv.e) {
 	longitude = argv.e;
 }
+if (argv.t) {
+    timezone = argv.t;
+}
+timezone.replace("/", "%2");
 
 // Make a request
 const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude='+latitude+'&longitude='+longitude+'&daily=precipitation_hours&timezone='+timezone);
@@ -71,7 +71,6 @@ if (argv.j) {
 
 // days
 const days = argv.d;
-
 
 if (data.daily.precipitation_hours[days] == 0) {
 	console.log("You will not need your galoshes")

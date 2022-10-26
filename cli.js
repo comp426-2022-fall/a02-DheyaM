@@ -4,7 +4,7 @@ import moment from "moment-timezone";
 import fetch from "node-fetch";
 import minimist from "minimist";
 
-const argv = process.argv.slice(2);
+const argv = minimist(process.argv.slice(2));
 
 // timezone
 const timezone = moment.tz.guest()
@@ -13,7 +13,7 @@ if (process.argv.indexOf('-z') > -1) {
 }
 
 // help
-if (process.argv.indexOf('-h') > -1) {
+if (argv.h) {
     console.log("Usage: $0 [options] -[n|s] LATITUDE -[e|w] LONGITUDE -z TIME_ZONE")
     console.log("  -h\t\tShow this help message and exit.")
     console.log("  -n, -s\tLatitude: N positive; S negative.")
@@ -25,22 +25,22 @@ if (process.argv.indexOf('-h') > -1) {
 }
 
 // latitude and longitude
-const latitude = 0;
-const longitude = 0;
+var latitude = 0;
+var longitude = 0;
 
-if (process.argv.indexOf('-n') > -1) {
-	latitude = argv[process.argv.indexOf('-n') - 1]
+if (argv.n) {
+	latitude = argv.n;
 }
 
-if (process.argv.indexOf('-s') > -1) {
-	latitude = (argv[process.argv.indexOf('-s') -1]) * (-1);
+if (argv.s) {
+	latitude = (argv.s) * (-1);
 }
 
-if (process.argv.indexOf('-w') > -1) {
-	longitude = argv[process.argv.indexOf('-w') - 1];
+if (argv.w) {
+	longitude = argv.w * (-1);
 }
-if (process.argv.indexOf('-e') > -1) {
-	longitude = (argv[process.argv.indexOf('-e') -1]) * (-1);
+if (argv.e) {
+	longitude = argv.e;
 }
 
 // Make a request
@@ -69,7 +69,6 @@ if (days == 0) {
 		console.log('You might need your galoshes')
 	}
     console.log(" today.")
-    process.exit(0)
 } else if (days > 1) {
     if (data.daily.precipitation_hours[days] == 0) {
 		console.log('You will not need your galoshes')
@@ -77,7 +76,6 @@ if (days == 0) {
 		console.log('You might need your galoshes')
 	}
     console.log(" in " + days + " days.")
-    process.exit(0)
 } else {
     if (data.daily.precipitation_hours[days] == 0) {
 		console.log('You will not need your galoshes')
@@ -85,5 +83,5 @@ if (days == 0) {
 		console.log('You might need your galoshes')
 	}
     console.log(" tomorrow.")
-    process.exit(0)
 }
+process.exit(0)
